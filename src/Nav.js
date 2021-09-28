@@ -1,12 +1,39 @@
-import React from 'react';
-import './Nav.css';
+import React, { useState, useEffect } from "react";
+import "./Nav.css";
 
 function Nav() {
-    return (
-        <div className="nav">
-            <h1>This is the nav</h1>
-        </div>
-    )
+  const [show, handleShow] = useState(false);
+
+  const transitionNavBar = () => {
+    if (window.scrollY > 100) {
+      handleShow(true);
+    } else {
+      handleShow(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", transitionNavBar);
+    return () => window.removeEventListener("scroll", transitionNavBar);
+  }, []);
+
+  return (
+    <div className={`nav ${show && "nav_black"}`}>
+      <div className="nav_contents">
+        <img
+          className="nav_logo"
+          src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
+          alt="logo"
+        />
+
+        <img
+          className="nav_avatar"
+          src="https://res.cloudinary.com/mountaincloud/image/upload/v1632869884/Screen_Shot_2021-09-28_at_3.57.56_PM_or6tzm.png"
+          alt="avatar"
+        />
+      </div>
+    </div>
+  );
 }
 
-export default Nav
+export default Nav;
